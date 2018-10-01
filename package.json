@@ -1,0 +1,26 @@
+{
+  "name": "Programming3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start":"node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GorSimonyan/Programming3.git"
+  },
+  "author": "GorSimonyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanumanum/test-heroku-gol/issues"
+  },
+  "homepage": "https://GS-programing3.herokuapp.com/",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "engines": {
+    "node": "4.7.2"
+  }
+}
