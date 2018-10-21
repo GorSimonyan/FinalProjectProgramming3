@@ -14,6 +14,7 @@ class Grass {
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1],
         ];
+        this.whenToMultiply = 5;
     }
     chooseCell(character) {
         var found = [];
@@ -31,11 +32,16 @@ class Grass {
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
-        if (this.multiply >= 2 && newCell) {
+        if (frameCount % 120 == 0) {
+            this.whenToMultiply = 15;
+        }
+        console.log(frameCount);
+        if (this.multiply >= this.whenToMultiply && newCell) {
             var newGrass = new Grass(newCell[0], newCell[1], this.index);
             grassArr.push(newGrass);
             matrix[newCell[1]][newCell[0]] = 1;
             this.multiply = 0;
+            this.whenToMultiply = 5;
         }
     }
 }
