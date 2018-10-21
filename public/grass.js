@@ -32,10 +32,10 @@ class Grass {
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
-        if (frameCount % 120 == 0) {
-            this.whenToMultiply = 15;
+        if (frameCount % 60 == 0) {
+            this.whenToMultiply = 10;
         }
-        console.log(frameCount);
+
         if (this.multiply >= this.whenToMultiply && newCell) {
             var newGrass = new Grass(newCell[0], newCell[1], this.index);
             grassArr.push(newGrass);
