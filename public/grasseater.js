@@ -1,3 +1,12 @@
+module.exports = class GrassEater {
+    constructor() {
+        this.x = x;
+    }
+    getArea() {
+        return this.x * this.x
+    }
+};
+
 class GrassEater {
     constructor(x, y, index) {
         this.x = x;
@@ -17,6 +26,7 @@ class GrassEater {
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
         ];
+        this.whenToMultiply = 5;
     }
 
     chooseCell(character) {
@@ -36,6 +46,14 @@ class GrassEater {
     }
     move() {
         var emptyCells = this.chooseCell(0);
+        if(frameCount % 6 == 0)
+        {
+            this.whenToMultiply = 10;
+        }
+        if(frameCount % 12 == 0)
+        {
+            this.whenToMultiply = 5;
+        }
         var newCell = random(emptyCells);
         if (newCell) {
             var newX = newCell[0];

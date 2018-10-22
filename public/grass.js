@@ -29,11 +29,17 @@ class Grass {
         }
         return found;
     }
+
+
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
-        if (frameCount % 60 == 0) {
+        if (frameCount % 6 == 0) {
             this.whenToMultiply = 10;
+        }
+        if(frameCount % 12 == 0)
+        {
+            this.whenToMultiply = 5;
         }
 
         if (this.multiply >= this.whenToMultiply && newCell) {
@@ -41,7 +47,6 @@ class Grass {
             grassArr.push(newGrass);
             matrix[newCell[1]][newCell[0]] = 1;
             this.multiply = 0;
-            this.whenToMultiply = 5;
         }
     }
 }

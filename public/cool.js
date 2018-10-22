@@ -34,14 +34,14 @@ class Cool {
     }
 
     eat() {
-        var emptyCell = this.chooseCell(1); 
+        // var emptyCell = this.chooseCell(1); 
         var emptyCells = this.chooseCell(2);
         var emptyCellsx = this.chooseCell(3);
         var a = [];
 
-        for (var i = 0; i < emptyCell.length; i++) {
-            a.push(emptyCell[i]);
-        }
+        // for (var i = 0; i < emptyCell.length; i++) {
+        //     a.push(emptyCell[i]);
+        // }
         for (var i = 0; i < emptyCells.length; i++) {
             a.push(emptyCells[i]);
         }
@@ -53,13 +53,13 @@ class Cool {
             var newX = newCellxy[0];
             var newY = newCellxy[1];
 
-            for (var i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
-                    grassArr.splice(i, 1);
-                    matrix[newY][newX] = 0;
-                    break;
-                }
-            }
+            // for (var i in grassArr) {
+            //     if (newX == grassArr[i].x && newY == grassArr[i].y) {
+            //         grassArr.splice(i, 1);
+            //         matrix[newY][newX] = 0;
+            //         break;
+            //     }
+            // }
             for (var i in grassEaterArr) {
                 if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1);
