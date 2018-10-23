@@ -1,14 +1,23 @@
 var express = require('express');
-var path = require('path');
 var app = express();
+var server = require('http').Server(app);
 
-// Define the port to run on
-app.set('port', process.env.PORT || 3000);
+var io = require('socket.io')(server);
 
-app.use(express.static(path.join(__dirname, 'public')));
+var matrix = require('./modules/matrix');
 
-// Listen for requests
-var server = app.listen(app.get('port'), function() {
-  var port = server.address().port;
-  console.log('Magic happens on port ' + port);
+app.use(express.static('public'));
+
+app.get('/', function(req, res){
+  res.redirect('index.html');
+});
+
+server.listen(3000);
+
+io.on("connection", function(socket){
+  socket.emit('receive matrix', matrix);
+
+  var interval = setInterval( function(){
+                    socket.emit('redraw', matrix);
+                  }, 200);
 });
