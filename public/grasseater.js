@@ -1,11 +1,11 @@
-module.exports = class GrassEater {
-    constructor() {
-        this.x = x;
-    }
-    getArea() {
-        return this.x * this.x
-    }
-};
+// module.exports = class GrassEater {
+//     constructor() {
+//         this.x = x;
+//     }
+//     getArea() {
+//         return this.x * this.x
+//     }
+// };
 
 class GrassEater {
     constructor(x, y, index) {

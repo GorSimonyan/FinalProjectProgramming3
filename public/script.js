@@ -83,17 +83,39 @@ function setup() {
     }
 
 }
+var express = require('express');
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+var engine = require('./modules/engine');
+
+app.set('port', process.env.PORT || 3000);
+
+app.use(express.static('public'));
+
+
+app.get('/', function(req, res){
+  res.redirect('index.html');
+});
+
+server.listen(3000);
+
+
+var matrix = getMatrix(80, 80);
+var side = 12;
+function setup() {
+    var socket = io.connect('http://localhost:3000');
 
 function draw() {
     var fr = frameCount;
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             
-            if(matrix[y][x] == 1 && frameCount % 12 <= 6) {   
+            if(matrix[y][x] == 1 && frameCount % 120 <= 60) {   
                 fill('green');
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 1 && frameCount % 6 >= 0) {
+            else if (matrix[y][x] == 1 && frameCount % 60 >= 0) {
                 fill('lightgreen');
                 rect(x * side, y * side, side, side);
             }
@@ -134,4 +156,5 @@ function draw() {
     for (var i in bonusArr) {
         bonusArr[i].eat();
     }
+}
 }

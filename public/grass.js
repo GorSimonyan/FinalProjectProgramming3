@@ -34,10 +34,10 @@ class Grass {
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));
-        if (frameCount % 6 == 0) {
+        if (frameCount % 60 == 0) {
             this.whenToMultiply = 10;
         }
-        if(frameCount % 12 == 0)
+        if(frameCount % 120 == 0)
         {
             this.whenToMultiply = 5;
         }
