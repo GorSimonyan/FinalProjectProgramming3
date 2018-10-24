@@ -7,6 +7,16 @@ var io = require('socket.io')(server);
 var mat = require('./modules/matrix');
 var matrix = mat();
 
+var bonus = require("./bonus")
+
+var cool = require("./cool")
+
+var predator = require("./predator")
+
+var grasseater = require("./grasseater")
+
+var grass = require("./grass")
+
 app.use(express.static('public'));
 
 app.get('/', function(req, res){

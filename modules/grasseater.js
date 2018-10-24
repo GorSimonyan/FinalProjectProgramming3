@@ -7,7 +7,7 @@
 //     }
 // };
 
-class GrassEater {
+module.exports = class GrassEater {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;

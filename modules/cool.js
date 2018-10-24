@@ -1,4 +1,4 @@
-class Cool {
+module.exports = class Cool {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
