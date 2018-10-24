@@ -4,10 +4,10 @@ var socket;
 
 
 function redrawMatrix(mtx){
-    matrix = mtx;
-    redrawMatrix();
+    matrix = mtx;  
+    redraw();
+  
 }
-
 function setup() {
     frameRate(0)
     socket = io.connect();

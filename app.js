@@ -4,13 +4,15 @@ var server = require('http').Server(app);
 
 var io = require('socket.io')(server);
 
-var matrix = require('./modules/matrix');
+var mat = require('./modules/matrix');
+var matrix = mat();
 
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
   res.redirect('index.html');
 });
+
 
 server.listen(3000);
 
