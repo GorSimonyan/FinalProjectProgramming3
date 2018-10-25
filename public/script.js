@@ -2,6 +2,11 @@ var side = 20;
 var matrix;
 var socket;
 
+var grassArr = [];
+var grassEaterArr = [];
+var predatorArr = [];
+var bonusArr = [];
+var coolArr = [];
 
 
 function setup() {
@@ -57,4 +62,19 @@ function draw() {
             }   
         }
     }
+}
+for (var i in grassArr) {
+    grassArr[i].mul();
+}
+for (var i in grassEaterArr) {
+    grassEaterArr[i].eat();
+}
+for (var i in predatorArr) {
+    predatorArr[i].eat();
+}
+for (var i in coolArr) {
+    coolArr[i].eat();
+}
+for (var i in bonusArr) {
+    bonusArr[i].eat();
 }

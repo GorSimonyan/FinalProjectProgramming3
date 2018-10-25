@@ -16,7 +16,7 @@ module.exports = class Grass {
         ];
         this.whenToMultiply = 5;
     }
-    chooseCell(character) {
+    chooseCell(character, matrix) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -30,18 +30,21 @@ module.exports = class Grass {
         return found;
     }
 
+    random(Arr){
+        var item = Arr[Math.floor(Math.random() * Arr.length)];
+        return item;
+    }
 
-    mul() {
+    mul(matrix, grassArr) {
         this.multiply++;
-        var newCell = random(this.chooseCell(0));
+        var emptyCells = this.chooseCell(0, matrix);
+        var newCell = this.random(emptyCells);
         if (frameCount % 60 == 0) {
             this.whenToMultiply = 10;
         }
-        if(frameCount % 120 == 0)
-        {
+        if (frameCount % 120 == 0) {
             this.whenToMultiply = 5;
         }
-
         if (this.multiply >= this.whenToMultiply && newCell) {
             var newGrass = new Grass(newCell[0], newCell[1], this.index);
             grassArr.push(newGrass);
