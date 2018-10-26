@@ -14,6 +14,7 @@ var Cool = require("./modules/cool")
 var Predator = require("./modules/predator")
 
 var GrassEater = require("./modules/grasseater")
+var character = new GrassEater();
 
 var Grass = require("./modules/grass")
 
@@ -66,25 +67,28 @@ server.listen(3000);
 
 io.on("connection", function (socket) {
   socket.emit('receive matrix', matrix);
+  var frameCount = 0;
 
   var interval = setInterval(function () {
-    socket.emit('redraw', matrix);
+    frameCount++;
     for (var i in grassArr) {
-      grassArr[i].mul(matrix, grassArr);
+      grassArr[i].mul(matrix, grassArr, frameCount);
     }
     for (var i in grassEaterArr) {
-      grassEaterArr[i].eat(matrix, grassEaterArr, grassArr);
+      console.log(grassEaterArr[i]+ "");
+      grassEaterArr[i].eat(matrix, character, frameCount, grassEaterArr, grassArr);
     }
-    for (var i in predatorArr) {
+    /*for (var i in predatorArr) {
       predatorArr[i].eat(matrix, predatorArr, grassEaterArr);
     }
     for (var i in bonusArr) {
       bonusArr[i].eat(matrix, bonusArr, predatorArr, coolArr, grassEaterArr);
     }
-    for (var i in autoArr) {
-      autoArr[i].eat(matrix, grassEaterArr, predatorArr, coolArr, grassArr);
-    }
-    console.log(matrix)
+    for (var i in coolArr) {
+      coolArr[i].eat(matrix, grassEaterArr, predatorArr, coolArr, grassArr);
+    }*/
+    socket.emit('redraw', matrix);
+    //console.log(matrix+"")
   }, 200);
 });
 

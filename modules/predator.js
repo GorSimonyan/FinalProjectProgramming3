@@ -20,7 +20,7 @@ module.exports = class Predator {
         ];
     }
 
-    chooseCell(character) {
+    chooseCell(character, matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.direction) {
@@ -66,7 +66,7 @@ module.exports = class Predator {
             this.energy += 10;
         }
         var emptyCells = this.chooseCell(2);
-        var newCell = random(emptyCells);
+        var newCell = this.random(emptyCells);
         this.multiply++
         if (newCell) {
             this.energy++;

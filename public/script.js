@@ -15,7 +15,6 @@ function setup() {
 
     socket.on('receive matrix', function (mtx) {
         matrix = mtx;
-        console.log(matrix)
         createCanvas(matrix[0].length * side, matrix.length * side);
         noLoop();
 
