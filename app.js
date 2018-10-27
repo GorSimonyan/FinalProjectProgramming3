@@ -1,28 +1,19 @@
 var express = require('express');
 var app = express();
-var server = require('http').Server(app);
 var mystat = require("fs");
+var server = require('http').Server(app);
+
 
 var io = require('socket.io')(server);
 
 var mat = require('./modules/matrix');
 var matrix = mat();
-
 var Bonus = require("./modules/bonus")
-var bonuslifeArr=[0, 0];
-
 var Cool = require("./modules/cool")
-var coollifeArr=[0, 0];
-
 var Predator = require("./modules/predator")
-var predatorlifeArr=[0, 0];
-
 var GrassEater = require("./modules/grasseater")
 var character = new GrassEater();
-var grasseaterlifeArr=[0, 0];
-
 var Grass = require("./modules/grass")
-var grasslifeArr=[0, 0];
 
 app.use(express.static('public'));
 
@@ -30,15 +21,20 @@ app.get('/', function (req, res) {
   res.redirect('index.html');
 });
 
-
-
-
 var grassArr = [];
-var grassEaterArr = [];
-var predatorArr = [];
-var coolArr = [];
-var bonusArr = [];
+var grasslifeArr=[0, 0];
 
+var grassEaterArr = [];
+var grasseaterlifeArr=[0, 0];
+
+var predatorArr = [];
+var predatorlifeArr=[0, 0];
+
+var coolArr = [];
+var coollifeArr=[0, 0];
+
+var bonusArr = [];
+var bonuslifeArr=[0, 0];
 
 
   for (y = 0; y < matrix.length; y++) {
@@ -67,10 +63,10 @@ var bonusArr = [];
   }
 
   grasslifeArr[0]       += grassArr.length;
-  grasseaterlifeArr[0]  += GrassEaterArr.length;
-  predatorlifeArr[0]    += PredatorArr.length;
-  egglifeArr[0]         += EggArr.length;
-  malelifeArr[0]        += MaleArr.length;
+  grasseaterlifeArr[0]  += grassEaterArr.length;
+  predatorlifeArr[0]    += predatorArr.length;
+  coollifeArr[0]        += coolArr.length;
+  bonuslifeArr[0]       += bonusArr.length;
 
 server.listen(3000);
 
@@ -85,10 +81,10 @@ io.on("connection", function (socket) {
     }
     for (var i in grassEaterArr) {
 
-      grassEaterArr[i].eat(matrix, character, frameCount, grassEaterArr, grassArr, grasseaterlifeArr);
+      grassEaterArr[i].eat(matrix, character, frameCount, grassEaterArr, grassArr, grasslifeArr, grasseaterlifeArr);
     }
     for (var i in predatorArr) {
-      predatorArr[i].eat(matrix, frameCount, predatorArr, grassEaterArr, predatorlifeArr);
+      predatorArr[i].eat(matrix, frameCount, predatorArr, grassEaterArr,grasseaterlifeArr, predatorlifeArr);
     }
     for (var i in coolArr) {
 
@@ -96,24 +92,27 @@ io.on("connection", function (socket) {
     }
 
     if (frameCount % 60 == 0) {
-      Statistica = {
-        "Grass": grassArr.length,
-        "GrassEater": grassEaterArr.length,
-        "Predator": predatorArr.length,
-        "Cool": coolArr.length,
-        "Bonus": bonusArr.length,
-      }
-      socket.emit("MyStats", Statistica);
-      stringTo(Statistica);
-    }
+      generateStats();
 
+      }socket.emit('redraw', matrix);
+  }, 200)
 
-    socket.emit('redraw', matrix);
-  }, 200);
-  function stringTo(stat) {
-    myJSON = JSON.stringify(Statistica);
-    mystat.writeFileSync("Statistica.json", myJSON)
+  function generateStats(){
+    var stat = {
+      "Grass": grassArr.length,  "grass-alive":grasslifeArr[0], "grass-dead":grasslifeArr[1],
+        "GrassEater": grassEaterArr.length,  "grasseater-alive":grasslifeArr[0], "grasseater-dead":grasseaterlifeArr[1],
+        "Predator": predatorArr.length,  "predator-alive":grasslifeArr[0], "predator-dead":predatorlifeArr[1],
+        "Cool": coolArr.length,  "cool-alive":grasslifeArr[0], "cool-dead":coollifeArr[1],
+        "Bonus": bonusArr.length,  "bonus-alive":grasslifeArr[0], "bonus-dead":bonuslifeArr[1],
+    };
+    socket.emit("get stat", stat)
+  main(stat);
+  }
+
+  function main(stat) {
+    var file = "Statistica.json";
+    mystat.writeFileSync(file, JSON.stringify(stat));
   }
 });
 
-main()
+    

@@ -35,7 +35,7 @@ module.exports = class Grass {
         return item;
     }
 
-    mul(matrix, grassArr, frameCount) {
+    mul(matrix, grassArr, frameCount, grasslifeArr) {
         this.multiply++;
         var emptyCells = this.chooseCell(0, matrix);
         var newCell = this.random(emptyCells);
