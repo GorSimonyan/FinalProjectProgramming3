@@ -18,6 +18,7 @@ module.exports = class Predator {
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
         ];
+        this.whenToMultyply = 5
     }
 
     chooseCell(character, matrix) {
@@ -34,9 +35,22 @@ module.exports = class Predator {
         }
         return found;
     }
-    move() {
-        var emptyCells = this.chooseCell(0);
-        var emptyCellsx = this.chooseCell(1);
+
+    random(Arr) {
+        var item = Arr[Math.floor(Math.random() * Arr.length)];
+        return item;
+    }
+
+
+    move(matrix, frameCount, predatorArr) {
+        var emptyCells = this.chooseCell(0, matrix);
+        var emptyCellsx = this.chooseCell(1, matrix);
+        if (frameCount % 6 == 0) {
+            this.whenToMultiply = 10;
+        }
+        if (frameCount % 12 == 0) {
+            this.whenToMultiply = 5;
+        }
         var a = [];
         for (var i = 0; i < emptyCells.length; i++) {
             a.push(emptyCells[i]);
@@ -44,7 +58,7 @@ module.exports = class Predator {
         for (var i = 0; i < emptyCellsx.length; i++) {
             a.push(emptyCellsx[i]);
         }
-        var newCellxy = random(a);
+        var newCellxy = this.random(a, emptyCells, emptyCellsx, matrix);
         if (newCellxy) {
             var newX = newCellxy[0];
             var newY = newCellxy[1];
@@ -56,17 +70,17 @@ module.exports = class Predator {
             this.x = newX;
             this.energy--;
             if (this.energy <= 1) {
-                this.die();
+                this.die(matrix, predatorArr);
             }
         }
     }
-    eat() {
-        var abc = this.chooseCell(5);
+    eat(matrix,frameCount, predatorArr, grassEaterArr) {
+        var abc = this.chooseCell(5, matrix);
         if (abc.length > 0) {
             this.energy += 10;
         }
-        var emptyCells = this.chooseCell(2);
-        var newCell = this.random(emptyCells);
+        var emptyCells = this.chooseCell(2, matrix);
+        var newCell = this.random(emptyCells, matrix);
         this.multiply++
         if (newCell) {
             this.energy++;
@@ -74,7 +88,7 @@ module.exports = class Predator {
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
             if (this.multiply >= 15) {
-                this.mul();
+                this.mul(matrix, predatorArr);
                 this.multiply = 0;
             }
             else {
@@ -90,17 +104,17 @@ module.exports = class Predator {
             }
         }
         else {
-            this.move();
+            this.move(matrix,frameCount, predatorArr);
         }
     }
-    mul() {
+    mul(matrix, predatorArr) {
         var newPredator = new Predator(this.x, this.y, this.index);
         predatorArr.push(newPredator);
         matrix[this.y][this.x] = this.index
         this.energy = 50;
 
     }
-    die() {
+    die(matrix, predatorArr) {
         matrix[this.y][this.x] = 0;
         for (var i in predatorArr) {
             if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {

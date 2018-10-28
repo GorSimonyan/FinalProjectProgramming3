@@ -29,8 +29,8 @@ app.get('/', function (req, res) {
 var grassArr = [];
 var grassEaterArr = [];
 var predatorArr = [];
-var bonusArr = [];
 var coolArr = [];
+var bonusArr = [];
 
 
 
@@ -52,12 +52,12 @@ function main() {
         predatorArr.push(gishatich);
       }
       else if (matrix[y][x] == 4) {
+        var cool = new Cool(x, y, 4);
+        coolArr.push(cool);
+      }
+      else if (matrix[y][x] == 4) {
         var bonus = new Bonus(x, y, 4);
         bonusArr.push(bonus);
-      }
-      else if (matrix[y][x] == 5) {
-        var cool = new Cool(x, y, 5);
-        coolArr.push(cool);
       }
     }
   }
@@ -75,18 +75,17 @@ io.on("connection", function (socket) {
       grassArr[i].mul(matrix, grassArr, frameCount);
     }
     for (var i in grassEaterArr) {
-      console.log(grassEaterArr[i]+ "");
+      
       grassEaterArr[i].eat(matrix, character, frameCount, grassEaterArr, grassArr);
     }
-    /*for (var i in predatorArr) {
-      predatorArr[i].eat(matrix, predatorArr, grassEaterArr);
-    }
-    for (var i in bonusArr) {
-      bonusArr[i].eat(matrix, bonusArr, predatorArr, coolArr, grassEaterArr);
+    for (var i in predatorArr) {
+      predatorArr[i].eat(matrix,frameCount, predatorArr, grassEaterArr);
     }
     for (var i in coolArr) {
-      coolArr[i].eat(matrix, grassEaterArr, predatorArr, coolArr, grassArr);
-    }*/
+      
+      coolArr[i].eat(matrix, grassEaterArr, predatorArr, coolArr);
+    }
+    
     socket.emit('redraw', matrix);
     //console.log(matrix+"")
   }, 200);

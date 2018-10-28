@@ -89,12 +89,12 @@ module.exports = class GrassEater {
             }
             this.y = newY;
             this.x = newX;
-            // for (var i in grassArr) {
-            //     if (newX == grassArr[i].x && newY == grassArr[i].y) {
-            //         grassArr.splice(i, 1);
-            //         break;
-            //     }
-            // }
+            for (var i in grassArr) {
+                if (newX == grassArr[i].x && newY == grassArr[i].y) {
+                    grassArr.splice(i, 1);
+                    break;
+                }
+            }
         }
         else {
             this.move(matrix,frameCount, grassEaterArr);

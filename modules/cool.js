@@ -18,7 +18,7 @@ module.exports = class Cool {
         ];
     }
 
-    chooseCell(character) {
+    chooseCell(character, matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.direction) {
@@ -33,10 +33,16 @@ module.exports = class Cool {
         return found;
     }
 
-    eat() {
+
+    random(Arr) {
+        var item = Arr[Math.floor(Math.random() * Arr.length)];
+        return item;
+    }
+
+    eat(matrix, grassEaterArr, predatorArr, coolArr) {
         // var emptyCell = this.chooseCell(1); 
-        var emptyCells = this.chooseCell(2);
-        var emptyCellsx = this.chooseCell(3);
+        var emptyCells = this.chooseCell(2, matrix);
+        var emptyCellsx = this.chooseCell(3, matrix);
         var a = [];
 
         // for (var i = 0; i < emptyCell.length; i++) {
@@ -48,7 +54,7 @@ module.exports = class Cool {
         for (var i = 0; i < emptyCellsx.length; i++) {
             a.push(emptyCellsx[i]);
         }
-        var newCellxy = random(a);
+        var newCellxy = this.random(a);
         if (newCellxy) {
             var newX = newCellxy[0];
             var newY = newCellxy[1];
@@ -67,11 +73,13 @@ module.exports = class Cool {
                 }
                 matrix[newY][newX] = 0;
             }
+
             for (var i in predatorArr) {
                 if (newX == predatorArr[i].x && newY == predatorArr[i].y) {
                     predatorArr.splice(i, 1);
                     break;
                 }
+                matrix[newY][newX] = 0;
             }
         }
     }
