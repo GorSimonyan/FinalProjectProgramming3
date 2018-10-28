@@ -39,17 +39,32 @@ module.exports = class Grass {
         this.multiply++;
         var emptyCells = this.chooseCell(0, matrix);
         var newCell = this.random(emptyCells);
-        if (frameCount % 60 == 0) {
+        if (frameCount % 120 == 0) {
+            this.whenToMultiply = 20;
+        }
+        if (frameCount % 240 == 0) {
             this.whenToMultiply = 10;
         }
-        if (frameCount % 120 == 0) {
-            this.whenToMultiply = 5;
-        }
-        if (this.multiply >= this.whenToMultiply && newCell) {
+        if (this.multiply == this.whenToMultiply && newCell) {
             var newGrass = new Grass(newCell[0], newCell[1], this.index);
             grassArr.push(newGrass);
             matrix[newCell[1]][newCell[0]] = 1;
             this.multiply = 0;
+        }
+        if(this.multiply == 5){
+            this.die(matrix, grassArr,grasslifeArr)
+        }
+        
+    }
+
+    die(matrix, grassArr,grasslifeArr) {
+        matrix[this.y][this.x] = 0;
+        for (var i in grassArr) {
+            if  (this.x == grassArr[i].x && this.y == grassArr[i].y){
+                grassArr.splice(i, 1);
+                grasslifeArr[1]++
+                break;
+            }
         }
     }
 }

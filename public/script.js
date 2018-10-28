@@ -22,9 +22,9 @@ function setup() {
             matrix = mtx;
             redraw();
         });
-        socket.on("MyStats",function(Statistica)
+        socket.on("get stat",function(stat)
         {
-            Statistic = Statistica
+            Statistic = stat
         })
     });
 
@@ -37,11 +37,11 @@ function draw() {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             
-            if(matrix[y][x] == 1 && frameCount % 120 <= 60) {   
+            if(matrix[y][x] == 1 && frameCount % 240 <= 120) {   
                 fill('green');
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 1 && frameCount % 60 >= 0) {
+            else if (matrix[y][x] == 1 && frameCount % 120 >= 0) {
                 fill('lightgreen');
                 rect(x * side, y * side, side, side);
             }

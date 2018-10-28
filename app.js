@@ -88,7 +88,7 @@ io.on("connection", function (socket) {
     }
     for (var i in coolArr) {
 
-      coolArr[i].eat(matrix, grassEaterArr, predatorArr, coolArr, coollifeArr);
+      coolArr[i].eat(matrix, grassEaterArr, predatorArr, coolArr, coollifeArr, grasseaterlifeArr, predatorlifeArr, frameCount);
     }
 
     if (frameCount % 60 == 0) {
