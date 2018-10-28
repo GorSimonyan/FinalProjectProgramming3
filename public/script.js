@@ -1,7 +1,7 @@
 var side = 20;
 var matrix;
 var socket;
-
+var Statistic;
 var grassArr = [];
 var grassEaterArr = [];
 var predatorArr = [];
@@ -15,19 +15,25 @@ function setup() {
 
     socket.on('receive matrix', function (mtx) {
         matrix = mtx;
-        createCanvas(matrix[0].length * side, matrix.length * side);
+        createCanvas(matrix[0].length * side+700, matrix.length * side);
         noLoop();
 
         socket.on("redraw", function(mtx){
             matrix = mtx;
             redraw();
         });
+        socket.on("MyStats",function(Statistica)
+        {
+            Statistic = Statistica
+        })
     });
 
     background("grey");
+
 }
 
 function draw() {
+    background("grey");
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             
@@ -61,19 +67,13 @@ function draw() {
             }   
         }
     }
-}
-for (var i in grassArr) {
-    grassArr[i].mul();
-}
-for (var i in grassEaterArr) {
-    grassEaterArr[i].eat();
-}
-for (var i in predatorArr) {
-    predatorArr[i].eat();
-}
-for (var i in coolArr) {
-    coolArr[i].eat();
-}
-for (var i in bonusArr) {
-    bonusArr[i].eat();
+  
+    textSize(24);
+    fill("black");
+    var margin = 20;
+    for(var i in Statistic){
+        text(i + ": " + Statistic[i], 900, margin);
+        margin += 20;
+    }
+    margin=0;
 }

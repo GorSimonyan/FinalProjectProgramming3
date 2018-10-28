@@ -2,7 +2,7 @@ module.exports = class Predator {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
-        this.energy = 15;
+        this.energy = 25;
         this.multiply = 0;
         this.index = index;
         this.hincel = 0;
@@ -77,7 +77,7 @@ module.exports = class Predator {
     eat(matrix,frameCount, predatorArr, grassEaterArr) {
         var abc = this.chooseCell(5, matrix);
         if (abc.length > 0) {
-            this.energy += 10;
+            this.energy += 20;
         }
         var emptyCells = this.chooseCell(2, matrix);
         var newCell = this.random(emptyCells, matrix);
