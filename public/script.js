@@ -37,12 +37,8 @@ function draw() {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             
-            if(matrix[y][x] == 1 && frameCount % 240 <= 120) {   
+            if(matrix[y][x] == 1) {   
                 fill('green');
-                rect(x * side, y * side, side, side);
-            }
-            else if (matrix[y][x] == 1 && frameCount % 120 >= 0) {
-                fill('lightgreen');
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 0) {
@@ -69,11 +65,22 @@ function draw() {
     }
   
     textSize(24);
-    fill("black");
+    fill('black')
     var margin = 20;
     for(var i in Statistic){
         text(i + ": " + Statistic[i], 900, margin);
         margin += 20;
     }
     margin=0;
+
+    fill('green')
+    rect(850, 5, 20, 20);
+    fill('orange')
+    rect(850, 65, 20, 20);
+    fill('red')
+    rect(850, 125, 20, 20);
+    fill('blue')
+    rect(850, 185, 20, 20);
+    fill('white')
+    rect(850, 245, 20, 20);
 }
