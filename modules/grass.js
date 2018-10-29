@@ -48,10 +48,11 @@ module.exports = class Grass {
         if (this.multiply == this.whenToMultiply && newCell) {
             var newGrass = new Grass(newCell[0], newCell[1], this.index);
             grassArr.push(newGrass);
+            grasslifeArr[0]++
             matrix[newCell[1]][newCell[0]] = 1;
             this.multiply = 0;
         }
-        if(this.multiply == 5){
+        if(this.multiply == 20 || frameCount >= 1000){
             this.die(matrix, grassArr,grasslifeArr)
         }
         

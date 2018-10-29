@@ -15,7 +15,7 @@ function setup() {
 
     socket.on('receive matrix', function (mtx) {
         matrix = mtx;
-        createCanvas(matrix[0].length * side+700, matrix.length * side);
+        createCanvas(matrix[0].length * side+1000, matrix.length * side);
         noLoop();
 
         socket.on("redraw", function(mtx){

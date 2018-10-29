@@ -42,13 +42,13 @@ module.exports = class Predator {
     }
 
 
-    move(matrix, frameCount, predatorArr) {
+    move(matrix, frameCount, predatorArr, predatorlifeArr) {
         var emptyCells = this.chooseCell(0, matrix);
         var emptyCellsx = this.chooseCell(1, matrix);
-        if (frameCount % 6 == 0) {
+        if (frameCount % 120 == 0) {
             this.whenToMultiply = 10;
         }
-        if (frameCount % 12 == 0) {
+        if (frameCount % 240 == 0) {
             this.whenToMultiply = 5;
         }
         var a = [];
@@ -69,12 +69,12 @@ module.exports = class Predator {
             this.y = newY;
             this.x = newX;
             this.energy--;
-            if (this.energy <= 1) {
-                this.die(matrix, predatorArr);
+            if (this.energy <= 1 || frameCount == 1000) {
+                this.die(matrix, predatorArr, predatorlifeArr);
             }
         }
     }
-    eat(matrix,frameCount, predatorArr, grassEaterArr) {
+    eat(matrix, frameCount, predatorArr, grassEaterArr,grasslifeArr, predatorlifeArr) {
         var abc = this.chooseCell(5, matrix);
         if (abc.length > 0) {
             this.energy += 20;
@@ -88,7 +88,7 @@ module.exports = class Predator {
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
             if (this.multiply >= 15) {
-                this.mul(matrix, predatorArr);
+                this.mul(matrix, predatorArr, predatorlifeArr);
                 this.multiply = 0;
             }
             else {
@@ -99,26 +99,29 @@ module.exports = class Predator {
             for (var i in grassEaterArr) {
                 if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1);
+                    grasslifeArr[1]++
                     break;
                 }
             }
         }
         else {
-            this.move(matrix,frameCount, predatorArr);
+            this.move(matrix, frameCount, predatorArr, predatorlifeArr);
         }
     }
-    mul(matrix, predatorArr) {
+    mul(matrix, predatorArr, predatorlifeArr) {
         var newPredator = new Predator(this.x, this.y, this.index);
         predatorArr.push(newPredator);
+        predatorlifeArr[0]++
         matrix[this.y][this.x] = this.index
         this.energy = 50;
 
     }
-    die(matrix, predatorArr) {
+    die(matrix, predatorArr, predatorlifeArr) {
         matrix[this.y][this.x] = 0;
         for (var i in predatorArr) {
             if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
                 predatorArr.splice(i, 1);
+                predatorlifeArr[1]++
                 break;
             }
         }

@@ -2,7 +2,7 @@ module.exports = class GrassEater {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
-        this.energy = 5;
+        this.energy = 10;
         this.multiply = 0;
         this.index = index;
     }
@@ -43,10 +43,10 @@ module.exports = class GrassEater {
 
     move(matrix, frameCount, grassEaterArr, grasseaterlifeArr) {
         var emptyCells = this.chooseCell(0, matrix);
-        if (frameCount % 60 == 0) {
+        if (frameCount % 120 == 0) {
             this.whenToMultiply = 10;
         }
-        if (frameCount % 120 == 0) {
+        if (frameCount % 240 == 0) {
             this.whenToMultiply = 5;
         }
         var newCell = this.random(emptyCells, matrix);
@@ -59,7 +59,7 @@ module.exports = class GrassEater {
             this.x = newX;
             this.energy--;
 
-            if (this.energy == 1) {
+            if (this.energy == 1 || frameCount == 1000) {
                 this.die(matrix, grassEaterArr, grasseaterlifeArr);
             }
         }
@@ -80,7 +80,7 @@ module.exports = class GrassEater {
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
             this.energy++;
-            if (this.multiply >= 10) {
+            if (this.multiply >= 7) {
                 this.mul(matrix, grassEaterArr, grasseaterlifeArr);
                 this.multiply = 0;
             }

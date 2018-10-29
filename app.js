@@ -99,11 +99,11 @@ io.on("connection", function (socket) {
 
   function generateStats(){
     var stat = {
-      "Grass": grassArr.length,  "grass-alive":grasslifeArr[0], "grass-dead":grasslifeArr[1],
-        "GrassEater": grassEaterArr.length,  "grasseater-alive":grasslifeArr[0], "grasseater-dead":grasseaterlifeArr[1],
-        "Predator": predatorArr.length,  "predator-alive":grasslifeArr[0], "predator-dead":predatorlifeArr[1],
-        "Cool": coolArr.length,  "cool-alive":grasslifeArr[0], "cool-dead":coollifeArr[1],
-        "Bonus": bonusArr.length,  "bonus-alive":grasslifeArr[0], "bonus-dead":bonuslifeArr[1],
+        "Grass": grassArr.length,  "Grass-alive":grasslifeArr[0], "Grass-dead":grasslifeArr[1],
+        "GrassEater": grassEaterArr.length,  "Grasseater-alive":grasslifeArr[0], "Grasseater-dead":grasseaterlifeArr[1],
+        "Predator": predatorArr.length,  "Predator-alive":grasslifeArr[0], "Predator-dead":predatorlifeArr[1],
+        "Cool": coolArr.length,  "Cool-alive":grasslifeArr[0], "Cool-dead":coollifeArr[1],
+        "Bonus": bonusArr.length,  "Bonus-alive":grasslifeArr[0], "Bonus-dead":bonuslifeArr[1],
     };
     socket.emit("get stat", stat)
   main(stat);
